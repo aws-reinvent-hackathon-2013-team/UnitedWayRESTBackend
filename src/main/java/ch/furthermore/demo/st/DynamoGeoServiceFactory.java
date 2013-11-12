@@ -23,22 +23,21 @@ public class DynamoGeoServiceFactory {
 	
 	@PostConstruct
 	public void createDynamoClient() {
-		String regionName = ""; //"us-west-1"; //System.getProperty("PARAM1", ""); //FIXME
+		String regionName = Configuration.instance().getProperty(Configuration.Keys.DYNAMO_REGION);
 
 		ClientConfiguration clientConfiguration = new ClientConfiguration().withMaxErrorRetry(20);
+		AWSCredentials credentials = new BasicAWSCredentials(
+				Configuration.instance().getProperty(Configuration.Keys.DYNAMO_DBGEO_ACCESS_KEY),
+				Configuration.instance().getProperty(Configuration.Keys.DYNAMO_DBGEO_SECRET_KEY) );
+		ddb = new AmazonDynamoDBClient(credentials, clientConfiguration);
 		
-		if ("".equals(regionName)) { //shall use dynamo mock?
-			AWSCredentials credentials = new BasicAWSCredentials("fakeAccessKey", "fakeSecretKey");
-			ddb = new AmazonDynamoDBClient(credentials, clientConfiguration);
-			ddb.setEndpoint("http://localhost:8000");
-			
+		if ( regionName == null || "".equals(regionName) ) { //shall use dynamo mock?
+			ddb.setEndpoint("http://localhost:8000");	
 			logger.info("DynamoDB client initialized for localhost mock"); //TODO remove DEBUG code
 		}
 		else { //shall use instance role credentials and production dynamo?
-			ddb = new AmazonDynamoDBClient(clientConfiguration); //expects instance role!
 			Region region = Region.getRegion(Regions.fromName(regionName));
 			ddb.setRegion(region);
-			
 			logger.info("DynamoDB client initialized for region: " + region); //TODO remove DEBUG code
 		}
 	}
