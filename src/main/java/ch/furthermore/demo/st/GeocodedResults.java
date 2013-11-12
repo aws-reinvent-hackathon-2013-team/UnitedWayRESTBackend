@@ -1,7 +1,7 @@
 package ch.furthermore.demo.st;
 
 public class GeocodedResults {
-	private long needId;
+	private long needId; 
 	private String needTitle;
 	private String description;
 	private long agencyIdBit;
@@ -11,8 +11,36 @@ public class GeocodedResults {
 	private String agencyCity;
 	private String agencyState;
 	private int agencyZip;
+	
+	private double latitude;
+	private double longitude;
+	
 	private String phone;
 	private String email;
+
+	public String getRangeKey() {
+		return "" + needId;
+	}
+	
+	public void setRangeKey(String s) {
+		this.needId = Integer.parseInt(s);
+	}
+	
+	public double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
+
+	public double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
+	}
 
 	public long getNeedId() {
 		return needId;

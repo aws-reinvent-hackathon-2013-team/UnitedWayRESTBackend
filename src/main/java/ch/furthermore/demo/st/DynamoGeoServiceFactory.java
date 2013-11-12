@@ -23,7 +23,7 @@ public class DynamoGeoServiceFactory {
 	
 	@PostConstruct
 	public void createDynamoClient() {
-		String regionName = "us-west-1"; //System.getProperty("PARAM1", ""); //FIXME
+		String regionName = ""; //"us-west-1"; //System.getProperty("PARAM1", ""); //FIXME
 
 		ClientConfiguration clientConfiguration = new ClientConfiguration().withMaxErrorRetry(20);
 		

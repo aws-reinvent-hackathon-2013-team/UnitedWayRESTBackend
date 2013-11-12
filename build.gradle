@@ -29,6 +29,8 @@ dependencies {
   compile ':guava:r09'
   compile ':s2-geometry-java:'
   
+  compile 'net.sourceforge.javacsv:javacsv:2.0'
+  
   compile 'javax.ws.rs:jsr311-api:1.1.1'
   
   compile 'org.springframework:spring-web:3.2.4.RELEASE'
