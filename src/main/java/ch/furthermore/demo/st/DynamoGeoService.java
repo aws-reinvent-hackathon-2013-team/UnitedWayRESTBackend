@@ -38,6 +38,8 @@ public class DynamoGeoService {
 	public List<PointData> getPointsWithinRadius(double latitude, double longitude, double radiusInMeter, String... fetchAttributes) {
 		GeoPoint centerPoint = new GeoPoint(latitude, longitude);
 		
+		//System.out.println(latitude + "/" + longitude); //TODO remove DEBUG code
+		
 		List<String> attributesToGet = new ArrayList<String>();
 		attributesToGet.add(config().getRangeKeyAttributeName());
 		attributesToGet.add(config().getGeoJsonAttributeName());
@@ -51,6 +53,8 @@ public class DynamoGeoService {
 
 		List<PointData> result = new LinkedList<PointData>();
 		for (Map<String, AttributeValue> item : queryRadiusResult.getItem()) {
+			//System.out.println(" => " + item); //TODO remove DEBUG code
+			
 			PointData pd = extractPointData(item, fetchAttributes);
 			result.add(pd);
 		}
@@ -58,8 +62,7 @@ public class DynamoGeoService {
 		return result;
 	}
 
-	private PointData extractPointData(Map<String, AttributeValue> item,
-			String... fetchAttributes) {
+	private PointData extractPointData(Map<String, AttributeValue> item, String... fetchAttributes) {
 		PointData pd = new PointData();
 		try {
 			String geoJsonString = item.get(config().getGeoJsonAttributeName()).getS();

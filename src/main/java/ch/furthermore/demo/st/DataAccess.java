@@ -73,6 +73,8 @@ public class DataAccess {
 			r.setAgencyZip(Integer.parseInt(pd.getData().get("agencyZip")));
 			r.setPhone(pd.getData().get("phone"));
 			r.setEmail(pd.getData().get("email"));
+			
+			results.add(r);
 		}
 		return results; 
 	}
