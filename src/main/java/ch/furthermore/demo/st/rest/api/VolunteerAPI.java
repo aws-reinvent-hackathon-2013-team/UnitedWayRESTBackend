@@ -24,7 +24,7 @@ import ch.furthermore.demo.st.rest.model.Opportunity;
 public interface VolunteerAPI {
 	
 	public static interface Paths {
-		public static final String ROOT = "/api";
+		public static final String ROOT = "/";
 		public static final String CATEGORIES = "categories";
 		public static final String CATEGORY = "category";
 		public static final String AGENCIES = "agencies";
