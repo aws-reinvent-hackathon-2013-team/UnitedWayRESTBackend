@@ -22,8 +22,8 @@ public class ZipToLatLong {
 
             for (String line = in.readLine(); line != null; line = in.readLine()) {
                 String [] fields = line.split(",");
-                String longitutine = fields[3].replace('\"',' ').trim();
-                String latitutine = fields[4].replace('\"',' ').trim();
+                String latitutine  = fields[3].replace('\"',' ').trim();
+                String longitutine = fields[4].replace('\"',' ').trim();
 
                 zipLatLongMap.put(Long.parseLong(fields[0].replace('\"',' ').trim()), new LatLong(Float.parseFloat(latitutine), Float.parseFloat(longitutine) ));
             }
@@ -47,5 +47,20 @@ public class ZipToLatLong {
 
     public LatLong getLatLongForZip(Long zipCode) {
         return zipLatLongMap.get(zipCode);
+    }
+
+
+    public float distance (LatLong p1, LatLong p2) {
+        double p1LatRad = p1.getLatitude() * 0.0174532925;
+        double p1LongRad = p1.getLongitude() * 0.0174532925;
+        double p2LatRad = p2.getLatitude() * 0.0174532925;
+        double p2LongRad = p2.getLongitude() * 0.0174532925;
+
+        double R = 6371; // km
+        double d = Math.acos(Math.sin(p1LatRad)*Math.sin(p2LatRad) +
+                Math.cos(p1LatRad)*Math.cos(p2LatRad) *
+                Math.cos(p2LongRad-p1LongRad)) * R;
+
+        return (float)d;
     }
 }
