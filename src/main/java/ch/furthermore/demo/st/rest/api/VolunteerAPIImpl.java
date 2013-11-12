@@ -39,11 +39,11 @@ public class VolunteerAPIImpl implements VolunteerAPI {
 		return null;
 	}
 
-	@Override
-	public Collection<Opportunity> getOpportunities(Integer zipcode) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	//@Override
+	//public Collection<Opportunity> getOpportunities(Integer zipcode) {
+	//	// TODO Auto-generated method stub
+	//	return null;
+	//}
 
 	@Override
 	public Opportunity getOpportunity( String id) {

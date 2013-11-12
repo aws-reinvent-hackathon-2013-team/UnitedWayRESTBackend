@@ -1,11 +1,7 @@
 package ch.furthermore.demo.st;
 
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -25,7 +21,7 @@ public class ZipToLatLong {
     private ZipToLatLong() {
         try {
 
-            List<String> allLines = Files.readAllLines(Paths.get("masterData/US.txt"), StandardCharsets.UTF_8);
+            List<String> allLines = Files.readAllLines(Paths.get("/Users/chrigi/Documents/eclipseWorkspaceIndigoSR2/UnitedWayRESTBackend/masterData/US.txt"), StandardCharsets.UTF_8);
 
 
             for (String line : allLines) {

@@ -44,6 +44,7 @@ public class Importer {
 	}
 	
 	public void importData() throws IOException {
+		final ZipToLatLong zipLookup = ZipToLatLong.getInstance();
 		try {
 			new Importer().parseCsv("/Users/chrigi/Documents/eclipseWorkspaceIndigoSR2/UnitedWayRESTBackend/masterData/UnitedWay-Test+Data.csv", new CsvRowProcessor() { //FIXME no hard-coded stuff
 				@Override
@@ -59,8 +60,11 @@ public class Importer {
 					r.setDescription(row.get("Description"));
 					r.setEmail(row.get("email"));
 					r.setPhone(row.get("phone"));
-					r.setLatitude(-1); //FIXME
-					r.setLongitude(-1); //FIXME
+					
+					LatLong latLong = zipLookup.getLatLongForZip((long)r.getAgencyZip());
+					r.setLatitude(latLong.getLatitude()); 
+					r.setLongitude(latLong.getLongitude());
+					
 					r.setNeedId(Long.parseLong(row.get("needid")));
 					r.setNeedTitle(row.get("NeedTitle"));
 					

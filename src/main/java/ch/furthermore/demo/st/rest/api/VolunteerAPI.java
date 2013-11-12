@@ -54,9 +54,9 @@ public interface VolunteerAPI {
 	@Path(Paths.OPPORTUNITIES)
 	public Collection<Opportunity> getOpportunities( Integer latitude, Integer longitude );
 	
-	@GET
-	@Path(Paths.OPPORTUNITIES)
-	public Collection<Opportunity> getOpportunities( Integer zipcode );
+	//@GET
+	//@Path(Paths.OPPORTUNITIES)
+	//public Collection<Opportunity> getOpportunities( Integer zipcode );
 	
 	@GET
 	@Path(Paths.OPPORTUNITY + "/{id}")
