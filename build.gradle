@@ -1,0 +1,40 @@
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'eclipse-wtp'
+ 
+sourceCompatibility = 1.6
+version = '0.1'
+ 
+repositories {
+  mavenCentral()
+  
+  flatDir {
+     dirs 'thirdparty'
+  }
+}
+ 
+jar {
+  manifest {
+    attributes 'Implementation-Title': 'Spring JAX-RS Template', 'Implementation-Version': version 
+  }
+}
+ 
+dependencies {
+  providedCompile 'javax.servlet:javax.servlet-api:3.0.1'
+  
+  compile 'com.amazonaws:aws-java-sdk:1.6.4'
+  
+  compile ':dynamodb-geo:1.0.0'
+  compile ':guava:r09'
+  compile ':s2-geometry-java:'
+  
+  compile 'javax.ws.rs:jsr311-api:1.1.1'
+  
+  compile 'org.springframework:spring-web:3.2.4.RELEASE'
+  
+  compile 'com.sun.jersey:jersey-server:1.17.1'
+  compile 'com.sun.jersey:jersey-core:1.17.1'
+  compile 'com.sun.jersey:jersey-servlet:1.17.1'
+  compile 'com.sun.jersey:jersey-json:1.17.1'
+  compile 'com.sun.jersey.contribs:jersey-spring:1.17.1'
+}

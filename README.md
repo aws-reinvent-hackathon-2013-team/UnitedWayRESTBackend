@@ -1,4 +1,4 @@
-UnitedWayRESTBackend
-====================
+SpringJAXRSTemplate
+===================
 
-UnitedWayRESTBackend
+Spring JAX-RS Template
