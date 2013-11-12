@@ -2,6 +2,7 @@ package ch.furthermore.demo.st.rest.api;
 
 import java.util.Collection;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import ch.furthermore.demo.st.rest.model.Agency;
@@ -10,6 +11,8 @@ import ch.furthermore.demo.st.rest.model.Opportunity;
 
 @Component
 public class VolunteerAPIImpl implements VolunteerAPI {
+	@Autowired
+	private VolunteerService volunteerService;
 
 	@Override
 	public Collection<Agency> getAgencies() {
@@ -25,18 +28,17 @@ public class VolunteerAPIImpl implements VolunteerAPI {
 
 	@Override
 	public Collection<Category> getCategories() {
-		return VolunteerService.getCategories();
+		return volunteerService.getCategories();
 	}
 
 	@Override
 	public Category getCategory(String id) {
-		return VolunteerService.getCategory( id );
+		return volunteerService.getCategory( id );
 	}
 
 	@Override
-	public Collection<Opportunity> getOpportunities(Integer latitude, Integer longitude) {
-		// TODO Auto-generated method stub
-		return null;
+	public Collection<Opportunity> getOpportunities(float latitude, float longitude) {
+		return volunteerService.getOpportunities(latitude, longitude);
 	}
 
 	//@Override

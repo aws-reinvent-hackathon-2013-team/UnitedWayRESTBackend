@@ -8,6 +8,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.stereotype.Component;
@@ -23,7 +24,7 @@ import ch.furthermore.demo.st.rest.model.Opportunity;
 public interface VolunteerAPI {
 	
 	public static interface Paths {
-		public static final String ROOT = "/";
+		public static final String ROOT = "/api";
 		public static final String CATEGORIES = "categories";
 		public static final String CATEGORY = "category";
 		public static final String AGENCIES = "agencies";
@@ -52,7 +53,7 @@ public interface VolunteerAPI {
 	
 	@GET
 	@Path(Paths.OPPORTUNITIES)
-	public Collection<Opportunity> getOpportunities( Integer latitude, Integer longitude );
+	public Collection<Opportunity> getOpportunities( @QueryParam("latitude") float latitude, @QueryParam("longitude") float longitude );
 	
 	//@GET
 	//@Path(Paths.OPPORTUNITIES)

@@ -11,7 +11,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = Opportunity.Fields.SELF)
 @XmlAccessorType(XmlAccessType.NONE)
 public class Opportunity {
-
 	public static interface Fields {
 		public static final String SELF = "agency";
 		public static final String ID = "id";
@@ -41,4 +40,60 @@ public class Opportunity {
 	
 	@XmlElement(name=Location.Fields.SELF)
 	private Location location;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Date getTimeStart() {
+		return timeStart;
+	}
+
+	public void setTimeStart(Date timeStart) {
+		this.timeStart = timeStart;
+	}
+
+	public Date getTimeEnd() {
+		return timeEnd;
+	}
+
+	public void setTimeEnd(Date timeEnd) {
+		this.timeEnd = timeEnd;
+	}
+
+	public Agency getAgency() {
+		return agency;
+	}
+
+	public void setAgency(Agency agency) {
+		this.agency = agency;
+	}
+
+	public Location getLocation() {
+		return location;
+	}
+
+	public void setLocation(Location location) {
+		this.location = location;
+	}
 }

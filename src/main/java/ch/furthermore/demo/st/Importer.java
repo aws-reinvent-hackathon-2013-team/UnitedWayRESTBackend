@@ -40,6 +40,7 @@ public class Importer {
 				@Override
 				public void process(Map<String, String> row) {
 					GeocodedResults r = new GeocodedResults();
+					
 					r.setAgencyAddress(row.get("agencyaddress"));
 					r.setAgencyCity(row.get("agencycity"));
 					r.setAgencyIdBit(Long.parseLong(row.get("Agencyid")));
