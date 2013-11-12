@@ -18,13 +18,14 @@ public class ZipToLatLong {
 
     private ZipToLatLong() {
         try {
-            BufferedReader in = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("US.txt")));
+            BufferedReader in = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("zipcode.csv")));
 
             for (String line = in.readLine(); line != null; line = in.readLine()) {
-                String [] fields = line.split("\t");
-                String longitutine = fields[fields.length-1]  ;
-                String latitutine = fields[fields.length-2] ;
-                zipLatLongMap.put(Long.parseLong(fields[1]), new LatLong(Float.parseFloat(latitutine), Float.parseFloat(longitutine) ));
+                String [] fields = line.split(",");
+                String longitutine = fields[3].replace('\"',' ').trim();
+                String latitutine = fields[4].replace('\"',' ').trim();
+
+                zipLatLongMap.put(Long.parseLong(fields[0].replace('\"',' ').trim()), new LatLong(Float.parseFloat(latitutine), Float.parseFloat(longitutine) ));
             }
         }
 

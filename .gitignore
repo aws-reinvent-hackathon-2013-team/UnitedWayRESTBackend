@@ -4,4 +4,6 @@ build/
 .project
 .settings/
 .idea/
+out/
 bin/
+
