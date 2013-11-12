@@ -1,8 +1,8 @@
 package ch.furthermore.demo.st;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,16 +18,6 @@ public class Importer {
 	
 	interface CsvRowProcessor {
 		public void process(Map<String,String> row);
-	}
-	
-	public void parseCsv(String fileName, CsvRowProcessor processor) throws IOException {
-		BufferedReader in = new BufferedReader(new FileReader(fileName));
-		try {
-			parseCsv(in, processor);
-		}
-		finally {
-			in.close();
-		}
 	}
 	
 	public void parseCsv(BufferedReader in, CsvRowProcessor processor) throws IOException {
@@ -46,7 +36,8 @@ public class Importer {
 	public void importData() throws IOException {
 		final ZipToLatLong zipLookup = ZipToLatLong.getInstance();
 		try {
-			new Importer().parseCsv("/Users/chrigi/Documents/eclipseWorkspaceIndigoSR2/UnitedWayRESTBackend/masterData/UnitedWay-Test+Data.csv", new CsvRowProcessor() { //FIXME no hard-coded stuff
+			BufferedReader in = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("UnitedWay-Test+Data.csv")));
+			new Importer().parseCsv(in, new CsvRowProcessor() { 
 				@Override
 				public void process(Map<String, String> row) {
 					GeocodedResults r = new GeocodedResults();

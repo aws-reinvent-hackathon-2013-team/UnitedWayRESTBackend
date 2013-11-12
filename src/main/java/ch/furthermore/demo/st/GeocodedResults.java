@@ -1,5 +1,6 @@
 package ch.furthermore.demo.st;
 
+
 public class GeocodedResults {
 	private long needId; 
 	private String needTitle;

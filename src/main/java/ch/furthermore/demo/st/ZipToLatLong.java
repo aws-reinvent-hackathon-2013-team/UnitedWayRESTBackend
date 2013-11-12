@@ -1,12 +1,10 @@
 package ch.furthermore.demo.st;
 
 
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.InputStreamReader;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Set;
 
 public class ZipToLatLong {
@@ -20,11 +18,9 @@ public class ZipToLatLong {
 
     private ZipToLatLong() {
         try {
+            BufferedReader in = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("US.txt")));
 
-            List<String> allLines = Files.readAllLines(Paths.get("/Users/chrigi/Documents/eclipseWorkspaceIndigoSR2/UnitedWayRESTBackend/masterData/US.txt"), StandardCharsets.UTF_8);
-
-
-            for (String line : allLines) {
+            for (String line = in.readLine(); line != null; line = in.readLine()) {
                 String [] fields = line.split("\t");
                 String longitutine = fields[fields.length-1]  ;
                 String latitutine = fields[fields.length-2] ;
@@ -33,7 +29,7 @@ public class ZipToLatLong {
         }
 
         catch (IOException e) {
-
+        	throw new RuntimeException(e);
         }
 
     }

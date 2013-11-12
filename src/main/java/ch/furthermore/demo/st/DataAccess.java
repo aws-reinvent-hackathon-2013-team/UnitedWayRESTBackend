@@ -16,7 +16,7 @@ public class DataAccess {
 	
 	@PostConstruct
 	public void init() {
-		String tableName = "geocodedResults2"; //FIXME System.getProperty("PARAM2", "geocodedResults");
+		String tableName = "geocodedResults4"; //FIXME System.getProperty("PARAM2", "geocodedResults");
 		geoService = dynamoGeoServiceFactory.createDynamoGeoService(tableName);
 	}
 	
@@ -36,6 +36,8 @@ public class DataAccess {
 		pd.withKeyValue("agencyZip", "" + r.getAgencyZip());
 		pd.withKeyValue("phone", r.getPhone());
 		pd.withKeyValue("email", r.getEmail());
+		
+		//System.out.println(r.getLatitude() + "/" + r.getLongitude()); //TODO remove DEBUG code
 		
 		geoService.putPoint(pd);
 	}
