@@ -48,7 +48,7 @@ public interface VolunteerAPI {
 	
 	@GET
 	@Path(Paths.CATEGORY + "/{id}")
-	public Collection<Category> getCategory( String id );
+	public Category getCategory( String id );
 	
 	@GET
 	@Path(Paths.OPPORTUNITIES)
