@@ -21,6 +21,7 @@ jar {
  
 dependencies {
   providedCompile 'javax.servlet:javax.servlet-api:3.0.1'
+
   
   compile 'com.amazonaws:aws-java-sdk:1.6.4'
   
@@ -37,4 +38,7 @@ dependencies {
   compile 'com.sun.jersey:jersey-servlet:1.17.1'
   compile 'com.sun.jersey:jersey-json:1.17.1'
   compile 'com.sun.jersey.contribs:jersey-spring:1.17.1'
+
+  testCompile group: 'junit', name: 'junit', version: '4.+'
+
 }
