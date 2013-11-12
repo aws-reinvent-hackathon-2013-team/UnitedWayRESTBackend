@@ -20,6 +20,6 @@ public class TestResource {
     @Path("/test1")
 	@Produces(MediaType.APPLICATION_JSON)
     public Collection<GeocodedResults> pointsAroundMe() {
-		return dataAccess.getOpportunities(6.6666f,	7.7777f, 100f);
+		return dataAccess.getOpportunities(6.6666f,	7.7777f, 100f); //6.6666	7.7777
 	}
 }
