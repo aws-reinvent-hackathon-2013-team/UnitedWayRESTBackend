@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f0cd8dba-0a8c-49d6-b647-cd93bd6200be" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/ch/furthermore/demo/st/rest/model/Registration.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/UnitedWayRESTBackend.iml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ch/furthermore/demo/st/DataAccess.java" afterPath="$PROJECT_DIR$/src/main/java/ch/furthermore/demo/st/DataAccess.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ch/furthermore/demo/st/rest/api/VolunteerAPIImpl.java" afterPath="$PROJECT_DIR$/src/main/java/ch/furthermore/demo/st/rest/api/VolunteerAPIImpl.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ch/furthermore/demo/st/rest/api/VolunteerService.java" afterPath="$PROJECT_DIR$/src/main/java/ch/furthermore/demo/st/rest/api/VolunteerService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="build.gradle.iws" />
@@ -85,10 +81,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="DataAccess.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="DataAccess.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/ch/furthermore/demo/st/DataAccess.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="288" column="19" selection-start="10998" selection-end="10998" vertical-scroll-proportion="1.0711678">
+            <state line="275" column="81" selection-start="10726" selection-end="10726" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="e#8968#8995#0" expanded="true" />
                 <element signature="e#10081#10108#0" expanded="true" />
@@ -143,12 +139,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="VolunteerService.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="VolunteerService.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/ch/furthermore/demo/st/rest/api/VolunteerService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="158" column="34" selection-start="5905" selection-end="5920" vertical-scroll-proportion="-9.730769">
+            <state line="20" column="0" selection-start="584" selection-end="584" vertical-scroll-proportion="0.38310412">
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#2396#2404#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -1262,22 +1258,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ch/furthermore/demo/st/rest/api/VolunteerService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="158" column="34" selection-start="5905" selection-end="5920" vertical-scroll-proportion="-9.730769">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ch/furthermore/demo/st/DataAccess.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="288" column="19" selection-start="10998" selection-end="10998" vertical-scroll-proportion="1.0711678">
+        <state line="275" column="81" selection-start="10726" selection-end="10726" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="e#8968#8995#0" expanded="true" />
             <element signature="e#10081#10108#0" expanded="true" />
             <element signature="e#10708#10722#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ch/furthermore/demo/st/rest/api/VolunteerService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="0" selection-start="584" selection-end="584" vertical-scroll-proportion="0.38310412">
+          <folding>
+            <element signature="e#2396#2404#0" expanded="true" />
           </folding>
         </state>
       </provider>
