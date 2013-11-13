@@ -10,6 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import ch.furthermore.demo.st.rest.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,10 +18,6 @@ import ch.furthermore.demo.st.DataAccess;
 import ch.furthermore.demo.st.GeocodedResults;
 import ch.furthermore.demo.st.LatLong;
 import ch.furthermore.demo.st.ZipToLatLong;
-import ch.furthermore.demo.st.rest.model.Agency;
-import ch.furthermore.demo.st.rest.model.Category;
-import ch.furthermore.demo.st.rest.model.Location;
-import ch.furthermore.demo.st.rest.model.Opportunity;
 
 import com.google.code.geocoder.Geocoder;
 import com.google.code.geocoder.GeocoderRequestBuilder;
@@ -153,7 +150,14 @@ public class VolunteerService {
 	}
 	
 	public String registerForOpportunity( String opportunityId, String volunteerId ) {
-		// call to DynamoDB
+
+        Registration r = new Registration();
+        r.setDonorUUID(volunteerId);
+        r.setOpportunityId(opportunityId);
+        r.setCategory("dummy");
+
+        dataAccess.AddRegistration(r);
+
 		return opportunityId;
 	}
 	

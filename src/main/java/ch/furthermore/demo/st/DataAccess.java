@@ -8,6 +8,7 @@ import java.util.*;
 import javax.annotation.PostConstruct;
 
 import ch.furthermore.demo.st.rest.model.Donor;
+import ch.furthermore.demo.st.rest.model.Registration;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.model.*;
@@ -20,7 +21,8 @@ public class DataAccess {
 	private DynamoServiceFactory dynamoGeoServiceFactory;
 	private DynamoGeoService geoService;
 
-    private  String doantionDataTableName ="DonationData" ;
+    private  String doantionDataTableName ="DonationData";
+    private  String RegistrationTableName ="Registrations";
 	
 	@PostConstruct
 	public void init() {
@@ -121,12 +123,9 @@ public class DataAccess {
         {
             throw new RuntimeException();
         }
-
     }
 
     public  void importDonationData () {
-
-
         DynamoServiceFactory dsf = new DynamoServiceFactory();
         AmazonDynamoDBClient client = dsf.createDynamoClient();
 
@@ -144,10 +143,8 @@ public class DataAccess {
          try {
 
                 HashMap<String,String> donorIdUUidMap = new  HashMap<String,String>();
-
                 //populate table
                 BufferedReader in = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("DonationData.csv")));
-
 
                 for (String line = in.readLine(); line != null; line = in.readLine()) {
                     String [] fields = line.split(",");
@@ -209,6 +206,18 @@ public class DataAccess {
         return newDonor;
     }
 
+    protected  Registration CreateRegistrationFrom( java.util.Map<String,AttributeValue> r) {
+
+        Registration newRegistration = new Registration();
+
+        newRegistration.setDonorUUID(r.get(Registration.Fields.DonorUUID).getS()) ;
+        newRegistration.setOpportunityId( r.get(Registration.Fields.OpportunityId).getS());
+        newRegistration.setCategory    ( r.get(Registration.Fields.Category).getS());
+        newRegistration.setTimestamp   (Long.parseLong( r.get(Registration.Fields.Timestamp).getN()));
+
+        return newRegistration;
+    }
+
     public List<Donor> getDonorHistory (String donorUUID) {
 
         DynamoServiceFactory dsf = new DynamoServiceFactory();
@@ -241,7 +250,63 @@ public class DataAccess {
         }
 
         return donorsCreated;
-
     }
+
+    public List<Registration> getRegistrations (String donorUUID) {
+
+        DynamoServiceFactory dsf = new DynamoServiceFactory();
+        AmazonDynamoDBClient client = dsf.createDynamoClient();
+
+        Map<String,KeysAndAttributes> batchReq = new HashMap<String, KeysAndAttributes>();
+
+        HashMap<String,AttributeValue > attrib = new HashMap<String,AttributeValue >();
+        attrib.put("DonorUUID", new AttributeValue(donorUUID));
+
+        KeysAndAttributes kav = new KeysAndAttributes().withKeys(attrib);
+
+        batchReq.put(RegistrationTableName,kav);
+
+        BatchGetItemRequest req = new BatchGetItemRequest(batchReq);
+
+        BatchGetItemResult res = client.batchGetItem(req);
+
+        java.util.List<java.util.Map<String,AttributeValue>> registrations = res.getResponses().get(RegistrationTableName);
+
+        ArrayList<Registration> donorsCreated =  new ArrayList<Registration>();
+
+        System.out.printf("Found %d records", registrations.size());
+
+        for (java.util.Map<String,AttributeValue> d : registrations) {
+
+            donorsCreated.add( CreateRegistrationFrom (d));
+
+        }
+
+        return donorsCreated;
+    }
+
+
+    public Boolean AddRegistration (Registration r) {
+
+        DynamoServiceFactory dsf = new DynamoServiceFactory();
+        AmazonDynamoDBClient client = dsf.createDynamoClient();
+
+        long RegistrationDate =  System.currentTimeMillis();
+
+        Map<String, AttributeValue> item = new HashMap<String, AttributeValue>();
+        item.put(Registration.Fields.DonorUUID, new AttributeValue().withS(r.getDonorUUID()));
+        item.put(Registration.Fields.OpportunityId, new AttributeValue().withS(r.getOpportunityId()));
+        item.put(Registration.Fields.Category, new AttributeValue().withS(r.getCategory()));
+        item.put(Registration.Fields.Timestamp, new AttributeValue().withN(String.valueOf(RegistrationDate)));
+
+        PutItemRequest putItemRequest = new PutItemRequest()
+                .withTableName(RegistrationTableName)
+                .withItem(item);
+
+        PutItemResult result = client.putItem(putItemRequest);
+
+        return true;
+    }
+
 
 }
