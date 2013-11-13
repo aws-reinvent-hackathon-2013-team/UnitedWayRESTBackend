@@ -31,7 +31,7 @@ import com.google.code.geocoder.model.LatLng;
 
 @Component
 public class VolunteerService {
-	private static final float LOOKUP_RADIUS_METER = 100f;
+	private static final float LOOKUP_RADIUS_METER = 1000f;
 	private static Map<String,Category> categories = new HashMap<String,Category>();
 	
 	static {
