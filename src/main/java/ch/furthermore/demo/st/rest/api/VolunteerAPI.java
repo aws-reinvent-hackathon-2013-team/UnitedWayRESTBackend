@@ -53,11 +53,7 @@ public interface VolunteerAPI {
 	
 	@GET
 	@Path(Paths.OPPORTUNITIES)
-	public Collection<Opportunity> getOpportunities( @QueryParam("latitude") float latitude, @QueryParam("longitude") float longitude );
-	
-	//@GET
-	//@Path(Paths.OPPORTUNITIES)
-	//public Collection<Opportunity> getOpportunities( Integer zipcode );
+	public Collection<Opportunity> getOpportunities( @QueryParam("latitude") float latitude, @QueryParam("longitude") float longitude, @QueryParam("zip") String zipcode );
 	
 	@GET
 	@Path(Paths.OPPORTUNITY + "/{id}")

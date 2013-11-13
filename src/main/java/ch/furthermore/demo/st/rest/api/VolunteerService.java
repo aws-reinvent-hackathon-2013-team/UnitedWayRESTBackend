@@ -21,6 +21,14 @@ import ch.furthermore.demo.st.rest.model.Category;
 import ch.furthermore.demo.st.rest.model.Location;
 import ch.furthermore.demo.st.rest.model.Opportunity;
 
+import com.google.code.geocoder.Geocoder;
+import com.google.code.geocoder.GeocoderRequestBuilder;
+import com.google.code.geocoder.model.GeocodeResponse;
+import com.google.code.geocoder.model.GeocoderRequest;
+import com.google.code.geocoder.model.GeocoderResult;
+import com.google.code.geocoder.model.GeocoderStatus;
+import com.google.code.geocoder.model.LatLng;
+
 @Component
 public class VolunteerService {
 	private static final float LOOKUP_RADIUS_METER = 100f;
@@ -88,5 +96,24 @@ public class VolunteerService {
 		});
 		
 		return result;
+	}
+	
+	public Collection<Opportunity> getOpportunities( String zipcode ) {
+		LatLong ll = getLatLongZip( zipcode );
+		return getOpportunities( ll.getLatitude(), ll.getLatitude() );
+	}
+	
+	private LatLong getLatLongZip( String zipcode ) {
+		final Geocoder geocoder = new Geocoder();
+		GeocoderRequest request = new GeocoderRequestBuilder().setAddress(zipcode).setLanguage("en").getGeocoderRequest();
+		GeocodeResponse response = geocoder.geocode(request);
+		LatLong ll = null;
+		if( response != null && response.getStatus() == GeocoderStatus.OK ) {
+			for( GeocoderResult geoResult : response.getResults() ) {
+				LatLng googLatLong = geoResult.getGeometry().getLocation();
+				ll = new LatLong( googLatLong.getLat().floatValue(), googLatLong.getLng().floatValue() );
+			}
+		}
+		return ll;
 	}
 }

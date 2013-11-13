@@ -37,15 +37,12 @@ public class VolunteerAPIImpl implements VolunteerAPI {
 	}
 
 	@Override
-	public Collection<Opportunity> getOpportunities(float latitude, float longitude) {
-		return volunteerService.getOpportunities(latitude, longitude);
+	public Collection<Opportunity> getOpportunities(float latitude, float longitude, String zipcode) {
+		if( zipcode == null || zipcode.isEmpty() ) {
+			return volunteerService.getOpportunities(latitude, longitude);
+		}
+		return volunteerService.getOpportunities( zipcode );
 	}
-
-	//@Override
-	//public Collection<Opportunity> getOpportunities(Integer zipcode) {
-	//	// TODO Auto-generated method stub
-	//	return null;
-	//}
 
 	@Override
 	public Opportunity getOpportunity( String id) {
