@@ -80,6 +80,7 @@ public class VolunteerService {
 			op.setTimeEnd(new Date());
 			op.setTimeStart(new Date());
 			op.setTitle(flatOp.getNeedTitle());
+			op.setCategory( getCategory(flatOp.getCategory()) );
 			
 			result.add(op);
 		}
