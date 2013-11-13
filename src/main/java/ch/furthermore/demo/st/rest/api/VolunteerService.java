@@ -1,6 +1,5 @@
 package ch.furthermore.demo.st.rest.api;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -19,6 +18,7 @@ import ch.furthermore.demo.st.LatLong;
 import ch.furthermore.demo.st.ZipToLatLong;
 import ch.furthermore.demo.st.rest.model.Agency;
 import ch.furthermore.demo.st.rest.model.Category;
+import ch.furthermore.demo.st.rest.model.Donor;
 import ch.furthermore.demo.st.rest.model.Location;
 import ch.furthermore.demo.st.rest.model.Opportunity;
 
@@ -59,7 +59,12 @@ public class VolunteerService {
 	}
 	
 	private List<String> volunteerPreferredCategories(String volunteerId) {
-		return Arrays.asList(new String[]{}); //FIXME implement me select category from donor UNION select category from registration
+		List<String> categories = new LinkedList<String>();
+		for (Donor donor : dataAccess.getDonorHistory(volunteerId)) {
+			categories.add(donor.getCategory());
+		}
+		
+		return categories;
 	}
 
 	public Collection<Opportunity> getOpportunities(float latitude, float longitude, String volunteerId, List<String> preferredCategories) {
@@ -102,6 +107,8 @@ public class VolunteerService {
 	}
 
 	void sortDistance(float latitude, float longitude, final List<String> preferredCategories, final List<Opportunity> result) {
+		System.out.println("Soring by " + preferredCategories + " and distance"); //TODO remove DEBUG code
+		
 		final LatLong givenPos = new LatLong(latitude, longitude);
 		Collections.sort(result, new Comparator<Opportunity>() {
 			@Override

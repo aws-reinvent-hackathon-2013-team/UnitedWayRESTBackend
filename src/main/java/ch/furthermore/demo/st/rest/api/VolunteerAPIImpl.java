@@ -72,7 +72,9 @@ public class VolunteerAPIImpl implements VolunteerAPI {
 
 	private String getVolunteerId() {
 		List<String> headers = requestHeaders.getRequestHeader(USER_HEADER);
-		return headers == null || headers.isEmpty() ? null : headers.get(0); // should be none or one
+		return headers == null || headers.isEmpty() 
+				? "167b5281-00df-4c64-a406-54092eed8f90" //FIXME null 
+				: headers.get(0); // should be none or one
 	}
 	
 	private String createVolunteerId() {
