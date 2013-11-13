@@ -16,7 +16,7 @@ public class DataAccess {
 	
 	@PostConstruct
 	public void init() {
-		String tableName = "geocodedResults4"; //FIXME System.getProperty("PARAM2", "geocodedResults");
+		String tableName = "geocodedResults5"; //FIXME System.getProperty("PARAM2", "geocodedResults");
 		geoService = dynamoGeoServiceFactory.createDynamoGeoService(tableName);
 	}
 	
