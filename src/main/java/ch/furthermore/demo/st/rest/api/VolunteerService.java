@@ -84,18 +84,28 @@ public class VolunteerService {
 			result.add(op);
 		}
 		
-		final LatLong currentPos = new LatLong(latitude, longitude);
+		sortDistance(latitude, longitude, result);
+		
+		return result;
+	}
+
+	void sortDistance(float latitude, float longitude, List<Opportunity> result) {
+		final LatLong givenPos = new LatLong(latitude, longitude);
 		Collections.sort(result, new Comparator<Opportunity>() {
 			@Override
 			public int compare(Opportunity o1, Opportunity o2) { //FIXME verify correctness ;-)
 				final LatLong o1Pos = new LatLong((float)o1.getLocation().getLatitude(),(float) o1.getLocation().getLongitude());
 				final LatLong o2Pos = new LatLong((float)o2.getLocation().getLatitude(),(float)o2.getLocation().getLongitude());
 				
-				return (int)(100. * ZipToLatLong.getInstance().distance(currentPos, o1Pos) - ZipToLatLong.getInstance().distance(currentPos, o2Pos)); 
+				double dist1 = 100. * ZipToLatLong.getInstance().distance(givenPos, o1Pos);
+				double dist2 = 100. * ZipToLatLong.getInstance().distance(givenPos, o2Pos);
+				int result = (int)(dist1 - dist2);
+				
+				System.out.println("compare " + o1Pos.getLatitude() + "/" + o1Pos.getLongitude() + "("+dist1+")" + " with " + o2Pos.getLatitude() + "/" + o2Pos.getLongitude() + "("+dist2+") => " + result); //TODO remove DEBUG code 
+				
+				return result; 
 			}
 		});
-		
-		return result;
 	}
 	
 	public Collection<Opportunity> getOpportunities( String zipcode ) {
