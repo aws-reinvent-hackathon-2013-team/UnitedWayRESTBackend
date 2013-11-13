@@ -70,7 +70,7 @@ public class VolunteerService {
 			agency.setLocation(location);
 			agency.setName(flatOp.getAgencyName());
 			agency.setPhone(flatOp.getPhone());
-			agency.setUrl("http://fixme.com");
+			agency.setUrl("http://giphy.com/search/" + flatOp.getCategory());
 			
 			Opportunity op = new Opportunity();
 			op.setId("" + flatOp.getNeedId());
