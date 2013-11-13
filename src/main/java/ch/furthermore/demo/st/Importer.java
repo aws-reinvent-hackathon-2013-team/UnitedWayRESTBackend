@@ -32,6 +32,16 @@ public class Importer {
 		}
 	}
 	
+	static LatLong[] fakeLatLongs = new LatLong[]{
+		new LatLong((float)33.909460, (float)-118.366920),
+		new LatLong((float)33.923635, (float)-118.352634),
+		new LatLong((float)33.916426, (float)-118.335223),
+		new LatLong((float)33.910183, (float)-118.345882),
+		new LatLong((float)33.914289, (float)-118.358771),
+		new LatLong((float)33.901887, (float)-118.343298),
+		new LatLong((float)33.891231, (float)-118.378618),
+	};  
+	
 	public void importData() throws IOException {
 		final ZipToLatLong zipLookup = ZipToLatLong.getInstance();
 		try {
@@ -51,8 +61,20 @@ public class Importer {
 					r.setDescription(row.get("Description"));
 					r.setEmail(row.get("email"));
 					r.setPhone(row.get("phone"));
+					r.setNeedId(Long.parseLong(row.get("needid")));
 					
-					LatLong latLong = zipLookup.getLatLongForZip((long)r.getAgencyZip());
+					//very dirty hack below to support opportunity locations which are different than organzation locations
+					//"90250","Hawthorne","CA","33.914614","-118.35092","-8","1"
+					LatLong latLong;
+					if (r.getAgencyZip() == 90250) {
+						latLong = fakeLatLongs[(int)(r.getNeedId() % fakeLatLongs.length)];
+						
+						System.out.println("Added fake lat/long");
+					}
+					else {
+						//end of dirty hack
+						latLong = zipLookup.getLatLongForZip((long)r.getAgencyZip());
+					}
 					
 					if (latLong == null) {
 						System.out.println("Zipcode not found for: " + row); //DEBUG
@@ -60,14 +82,13 @@ public class Importer {
 					else {
 						r.setLatitude(latLong.getLatitude()); 
 						r.setLongitude(latLong.getLongitude());
-						
-						r.setNeedId(Long.parseLong(row.get("needid")));
-						r.setNeedTitle(row.get("NeedTitle"));
-						
-						dataAccess.insertgetOpportunity(r);
-						
-						System.out.println(row); //TODO remove DEBUG code
 					}
+						
+					r.setNeedTitle(row.get("NeedTitle"));
+						
+					dataAccess.insertgetOpportunity(r);
+						
+					System.out.println(row); //TODO remove DEBUG code
 				}
 			});
 		}
