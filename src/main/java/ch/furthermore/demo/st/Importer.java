@@ -69,4 +69,10 @@ public class Importer {
 			throw new RuntimeException(e);
 		}
 	}
+
+    public void   ImportDonationData ()
+    {
+        dataAccess.importDonationData();
+
+    }
 }

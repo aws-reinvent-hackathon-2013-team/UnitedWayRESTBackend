@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 @Path("/points")
 public class PointResource {
 	@Autowired
-	private DynamoGeoServiceFactory dynamoGeoServiceFactory;
+	private DynamoServiceFactory dynamoGeoServiceFactory;
 	private DynamoGeoService geoService;
 	
 	@PostConstruct
