@@ -114,6 +114,11 @@ public class VolunteerService {
 		return getOpportunities( ll.getLatitude(), ll.getLongitude(), volunteerId );
 	}
 	
+	public String registerForOpportunity( String opportunityId, String volunteerId ) {
+		// call to DynamoDB
+		return opportunityId;
+	}
+	
 	private LatLong getLatLongZip( String zipcode ) {
 		final Geocoder geocoder = new Geocoder();
 		GeocoderRequest request = new GeocoderRequestBuilder().setAddress(zipcode).setLanguage("en").getGeocoderRequest();

@@ -67,8 +67,7 @@ public class VolunteerAPIImpl implements VolunteerAPI {
 
 	@Override
 	public Opportunity register( String id) {
-		// TODO Auto-generated method stub
-		return null;
+		return getOpportunity( volunteerService.registerForOpportunity(id,getVolunteerId() ) );
 	}
 
 	private String getVolunteerId() {
