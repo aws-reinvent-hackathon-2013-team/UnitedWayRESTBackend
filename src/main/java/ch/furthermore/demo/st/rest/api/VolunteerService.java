@@ -59,7 +59,7 @@ public class VolunteerService {
 	}
 	
 	private List<String> volunteerPreferredCategories(String volunteerId) {
-		return Arrays.asList(new String[]{}); //FIXME implement me
+		return Arrays.asList(new String[]{}); //FIXME implement me select category from donor UNION select category from registration
 	}
 
 	public Collection<Opportunity> getOpportunities(float latitude, float longitude, String volunteerId, List<String> preferredCategories) {
