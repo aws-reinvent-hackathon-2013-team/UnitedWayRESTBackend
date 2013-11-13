@@ -1,5 +1,6 @@
 package ch.furthermore.demo.st.rest.api;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -48,10 +49,20 @@ public class VolunteerService {
 	}
 	
 	public Category getCategory( String id ) {
-		return categories.get( id );
+		return categories.get( id ) != null
+				? categories.get( id )
+				: new Category(id); //FIXME (!!!) remove this last-minute-dirty hack (currently, some code bases on category name and other code bases on category id)
 	}
 
 	public Collection<Opportunity> getOpportunities(float latitude, float longitude, String volunteerId ) {
+		return getOpportunities(latitude, longitude, volunteerId, volunteerPreferredCategories(volunteerId)); //FIXME
+	}
+	
+	private List<String> volunteerPreferredCategories(String volunteerId) {
+		return Arrays.asList(new String[]{}); //FIXME implement me
+	}
+
+	public Collection<Opportunity> getOpportunities(float latitude, float longitude, String volunteerId, List<String> preferredCategories) {
 		List<Opportunity> result = new LinkedList<Opportunity>();
 		for (GeocodedResults flatOp : dataAccess.getOpportunities(latitude, longitude, LOOKUP_RADIUS_METER)) {
 			Location location = new Location();
@@ -85,28 +96,55 @@ public class VolunteerService {
 			result.add(op);
 		}
 		
-		sortDistance(latitude, longitude, result);
+		sortDistance(latitude, longitude, preferredCategories, result);
 		
 		return result;
 	}
 
-	void sortDistance(float latitude, float longitude, List<Opportunity> result) {
+	void sortDistance(float latitude, float longitude, final List<String> preferredCategories, final List<Opportunity> result) {
 		final LatLong givenPos = new LatLong(latitude, longitude);
 		Collections.sort(result, new Comparator<Opportunity>() {
 			@Override
-			public int compare(Opportunity o1, Opportunity o2) { //FIXME verify correctness ;-)
-				final LatLong o1Pos = new LatLong((float)o1.getLocation().getLatitude(),(float) o1.getLocation().getLongitude());
-				final LatLong o2Pos = new LatLong((float)o2.getLocation().getLatitude(),(float)o2.getLocation().getLongitude());
-				
-				double dist1 = 100. * ZipToLatLong.getInstance().distance(givenPos, o1Pos);
-				double dist2 = 100. * ZipToLatLong.getInstance().distance(givenPos, o2Pos);
-				int result = (int)(dist1 - dist2);
-				
-				System.out.println("compare " + o1Pos.getLatitude() + "/" + o1Pos.getLongitude() + "("+dist1+")" + " with " + o2Pos.getLatitude() + "/" + o2Pos.getLongitude() + "("+dist2+") => " + result); //TODO remove DEBUG code 
-				
-				return result; 
+			public int compare(Opportunity o1, Opportunity o2) { 
+				int result = comparePreferredCategory(preferredCategories, o1, o2);
+				if (result == 0) {
+					return compareDistance(givenPos, o1, o2);
+				}
+				else {
+					return result;
+				}
 			}
 		});
+	}
+	
+	int comparePreferredCategory(List<String> preferredCategories, Opportunity o1, Opportunity o2) {
+		boolean o1Preferred = preferredCategories.contains(o1.getCategory().getName());
+		boolean o2Preferred = preferredCategories.contains(o2.getCategory().getName());
+		if (o1Preferred && o2Preferred) {
+			return 0;
+		}
+		else if (o1Preferred && !o2Preferred) {
+			return -1;
+		}
+		else if (!o1Preferred && o2Preferred) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
+	}
+	
+	int compareDistance(LatLong givenPos, Opportunity o1, Opportunity o2) { 
+		final LatLong o1Pos = new LatLong((float)o1.getLocation().getLatitude(),(float) o1.getLocation().getLongitude());
+		final LatLong o2Pos = new LatLong((float)o2.getLocation().getLatitude(),(float)o2.getLocation().getLongitude());
+		
+		double dist1 = 100. * ZipToLatLong.getInstance().distance(givenPos, o1Pos);
+		double dist2 = 100. * ZipToLatLong.getInstance().distance(givenPos, o2Pos);
+		int result = (int)(dist1 - dist2);
+		
+		System.out.println("compare " + o1Pos.getLatitude() + "/" + o1Pos.getLongitude() + "("+dist1+")" + " with " + o2Pos.getLatitude() + "/" + o2Pos.getLongitude() + "("+dist2+") => " + result); //TODO remove DEBUG code 
+		
+		return result; 
 	}
 	
 	public Collection<Opportunity> getOpportunities( String zipcode, String volunteerId ) {
