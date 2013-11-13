@@ -23,8 +23,10 @@ import ch.furthermore.demo.st.rest.model.Opportunity;
 @Produces(MediaType.APPLICATION_JSON)
 public interface VolunteerAPI {
 	
+	public static final String USER_HEADER = "X-United-Way-Volunteer";
+	
 	public static interface Paths {
-		public static final String ROOT = "/api";
+		public static final String ROOT = "/";
 		public static final String CATEGORIES = "categories";
 		public static final String CATEGORY = "category";
 		public static final String AGENCIES = "agencies";
@@ -53,11 +55,7 @@ public interface VolunteerAPI {
 	
 	@GET
 	@Path(Paths.OPPORTUNITIES)
-	public Collection<Opportunity> getOpportunities( @QueryParam("latitude") float latitude, @QueryParam("longitude") float longitude );
-	
-	//@GET
-	//@Path(Paths.OPPORTUNITIES)
-	//public Collection<Opportunity> getOpportunities( Integer zipcode );
+	public Collection<Opportunity> getOpportunities( @QueryParam("latitude") float latitude, @QueryParam("longitude") float longitude, @QueryParam("zip") String zipcode );
 	
 	@GET
 	@Path(Paths.OPPORTUNITY + "/{id}")

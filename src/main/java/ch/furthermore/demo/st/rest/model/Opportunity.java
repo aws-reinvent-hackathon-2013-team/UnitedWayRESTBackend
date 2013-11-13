@@ -40,6 +40,9 @@ public class Opportunity {
 	
 	@XmlElement(name=Location.Fields.SELF)
 	private Location location;
+	
+	@XmlElement(name=Category.Fields.SELF)
+	private Category category;
 
 	public String getId() {
 		return id;
@@ -95,5 +98,14 @@ public class Opportunity {
 
 	public void setLocation(Location location) {
 		this.location = location;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public Opportunity setCategory(Category category) {
+		this.category = category;
+		return this;
 	}
 }

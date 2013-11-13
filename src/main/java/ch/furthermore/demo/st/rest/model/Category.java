@@ -22,6 +22,12 @@ public class Category {
 	@XmlElement(name = Fields.NAME)
 	private String name;
 
+	public Category() {}
+	
+	public Category(String name) {
+		this.name = name;
+	}
+
 	public String getId() {
 		return id;
 	}

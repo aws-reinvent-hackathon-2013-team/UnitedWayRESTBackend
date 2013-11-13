@@ -21,6 +21,6 @@ public class LatLong {
     public float getLatitude(){ return Latitude;}
     public float getLongitude(){ return Longitude;}
 
-    public void setLatitude (float l)  { this.Latitude=l;}
-    public void setLongitude (float l)  { this.Longitude=l;}
+    public LatLong setLatitude (float l)  { this.Latitude=l; return this; }
+    public LatLong setLongitude (float l)  { this.Longitude=l; return this; }
 }

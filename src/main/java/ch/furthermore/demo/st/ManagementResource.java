@@ -30,6 +30,7 @@ public class ManagementResource { //FIXME authentication and authorization!!!
 			return "done ;-)";
 		}
 		catch (Exception e) {
+			e.printStackTrace();
 			return "Sorry: "  + e;
 		}
 	}
