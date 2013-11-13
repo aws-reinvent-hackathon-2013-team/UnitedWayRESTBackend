@@ -31,7 +31,7 @@ import com.google.code.geocoder.model.LatLng;
 
 @Component
 public class VolunteerService {
-	private static final float LOOKUP_RADIUS_METER = 1000f;
+	private static final float LOOKUP_RADIUS_METER = 2500f;
 	private static Map<String,Category> categories = new HashMap<String,Category>();
 	
 	static {
@@ -111,7 +111,7 @@ public class VolunteerService {
 	
 	public Collection<Opportunity> getOpportunities( String zipcode, String volunteerId ) {
 		LatLong ll = getLatLongZip( zipcode );
-		return getOpportunities( ll.getLatitude(), ll.getLatitude(), volunteerId );
+		return getOpportunities( ll.getLatitude(), ll.getLongitude(), volunteerId );
 	}
 	
 	private LatLong getLatLongZip( String zipcode ) {
@@ -125,6 +125,10 @@ public class VolunteerService {
 				ll = new LatLong( googLatLong.getLat().floatValue(), googLatLong.getLng().floatValue() );
 			}
 		}
+		
+		//LatLong ll2 = ZipToLatLong.getInstance().getLatLongForZip(Long.parseLong(zipcode));
+		//System.out.println("real " + ll.getLatitude() + "/" + ll.getLongitude() + " with fake " + ll2.getLatitude() + "/" + ll2.getLongitude()); //DEBUG
+		
 		return ll;
 	}
 }
