@@ -1,9 +1,12 @@
 package ch.furthermore.demo.st.rest.api;
 
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +14,8 @@ import org.springframework.stereotype.Component;
 
 import ch.furthermore.demo.st.DataAccess;
 import ch.furthermore.demo.st.GeocodedResults;
+import ch.furthermore.demo.st.LatLong;
+import ch.furthermore.demo.st.ZipToLatLong;
 import ch.furthermore.demo.st.rest.model.Agency;
 import ch.furthermore.demo.st.rest.model.Category;
 import ch.furthermore.demo.st.rest.model.Location;
@@ -39,7 +44,7 @@ public class VolunteerService {
 	}
 
 	public Collection<Opportunity> getOpportunities(float latitude, float longitude) {
-		Collection<Opportunity> result = new LinkedList<Opportunity>();
+		List<Opportunity> result = new LinkedList<Opportunity>();
 		for (GeocodedResults flatOp : dataAccess.getOpportunities(latitude, longitude, LOOKUP_RADIUS_METER)) {
 			Location location = new Location();
 			location.setAddress1(flatOp.getAgencyAddress());
@@ -47,6 +52,9 @@ public class VolunteerService {
 			location.setCity(flatOp.getAgencyCity());
 			location.setState(flatOp.getAgencyState());
 			location.setZip(flatOp.getAgencyZip());
+			location.setLatitude(flatOp.getLatitude());
+			location.setLongitude(flatOp.getLongitude());
+			
 			
 			Agency agency = new Agency();
 			agency.setEmail(flatOp.getEmail());
@@ -68,7 +76,16 @@ public class VolunteerService {
 			result.add(op);
 		}
 		
-		//FIXME sort by distance
+		final LatLong currentPos = new LatLong(latitude, longitude);
+		Collections.sort(result, new Comparator<Opportunity>() {
+			@Override
+			public int compare(Opportunity o1, Opportunity o2) { //FIXME verify correctness ;-)
+				final LatLong o1Pos = new LatLong((float)o1.getLocation().getLatitude(),(float) o1.getLocation().getLongitude());
+				final LatLong o2Pos = new LatLong((float)o2.getLocation().getLatitude(),(float)o2.getLocation().getLongitude());
+				
+				return (int)(100. * ZipToLatLong.getInstance().distance(currentPos, o1Pos) - ZipToLatLong.getInstance().distance(currentPos, o2Pos)); 
+			}
+		});
 		
 		return result;
 	}

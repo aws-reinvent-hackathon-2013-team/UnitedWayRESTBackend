@@ -53,15 +53,21 @@ public class Importer {
 					r.setPhone(row.get("phone"));
 					
 					LatLong latLong = zipLookup.getLatLongForZip((long)r.getAgencyZip());
-					r.setLatitude(latLong.getLatitude()); 
-					r.setLongitude(latLong.getLongitude());
 					
-					r.setNeedId(Long.parseLong(row.get("needid")));
-					r.setNeedTitle(row.get("NeedTitle"));
-					
-					dataAccess.insertgetOpportunity(r);
-					
-					System.out.println(row); //TODO remove DEBUG code
+					if (latLong == null) {
+						System.out.println("Zipcode not found for: " + row); //DEBUG
+					}
+					else {
+						r.setLatitude(latLong.getLatitude()); 
+						r.setLongitude(latLong.getLongitude());
+						
+						r.setNeedId(Long.parseLong(row.get("needid")));
+						r.setNeedTitle(row.get("NeedTitle"));
+						
+						dataAccess.insertgetOpportunity(r);
+						
+						System.out.println(row); //TODO remove DEBUG code
+					}
 				}
 			});
 		}

@@ -16,6 +16,8 @@ public class Location {
 		public static final String CITY = "city";
 		public static final String STATE = "state";
 		public static final String ZIP = "zip";
+		public static final String LATITUDE = "latitude";
+		public static final String LONGITUDE = "longitude";
 	}
 
 	@XmlElement(name=Fields.ADDRESS1)
@@ -32,6 +34,28 @@ public class Location {
 	
 	@XmlElement(name=Fields.ZIP)
 	private Integer zip;
+	
+	@XmlElement(name=Fields.LATITUDE)
+	private double latitude;
+	
+	@XmlElement(name=Fields.LONGITUDE)
+	private double longitude;
+	
+	public double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
+
+	public double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
+	}
 
 	public String getAddress1() {
 		return address1;
@@ -77,6 +101,4 @@ public class Location {
 		this.zip = zip;
 		return this;
 	}
-	
-	
 }
