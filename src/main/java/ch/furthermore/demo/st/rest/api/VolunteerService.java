@@ -126,9 +126,6 @@ public class VolunteerService {
 			}
 		}
 		
-		//LatLong ll2 = ZipToLatLong.getInstance().getLatLongForZip(Long.parseLong(zipcode));
-		//System.out.println("real " + ll.getLatitude() + "/" + ll.getLongitude() + " with fake " + ll2.getLatitude() + "/" + ll2.getLongitude()); //DEBUG
-		
 		return ll;
 	}
 }
