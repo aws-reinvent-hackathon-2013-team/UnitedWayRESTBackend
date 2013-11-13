@@ -73,7 +73,7 @@ public class VolunteerAPIImpl implements VolunteerAPI {
 	private String getVolunteerId() {
 		List<String> headers = requestHeaders.getRequestHeader(USER_HEADER);
 		return headers == null || headers.isEmpty() 
-				? "167b5281-00df-4c64-a406-54092eed8f90" //FIXME null 
+				? "faf01cde-8c61-4507-bcbe-26db0b6caf86" //General category 
 				: headers.get(0); // should be none or one
 	}
 	

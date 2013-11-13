@@ -23,6 +23,7 @@ import ch.furthermore.demo.st.rest.model.Category;
 import ch.furthermore.demo.st.rest.model.Donor;
 import ch.furthermore.demo.st.rest.model.Location;
 import ch.furthermore.demo.st.rest.model.Opportunity;
+import ch.furthermore.demo.st.rest.model.Registration;
 
 import com.google.code.geocoder.Geocoder;
 import com.google.code.geocoder.GeocoderRequestBuilder;
@@ -64,6 +65,10 @@ public class VolunteerService {
 		List<String> categories = new LinkedList<String>();
 		for (Donor donor : dataAccess.getDonorHistory(volunteerId)) {
 			categories.add(donor.getCategory());
+		}
+	
+		for (Registration registration : dataAccess.getRegistrations(volunteerId)) {
+			categories.add(registration.getCategory());
 		}
 		
 		return categories;

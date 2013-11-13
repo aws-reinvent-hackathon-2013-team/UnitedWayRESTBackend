@@ -7,10 +7,13 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import ch.furthermore.demo.st.rest.model.Donor;
+import ch.furthermore.demo.st.rest.model.Registration;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.UUID;
 
 @Component
 @Path("/management")
@@ -62,4 +65,16 @@ public class ManagementResource { //FIXME authentication and authorization!!!
 //        }
     }
 
+    @GET
+    @Path("/createFakeReg")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String createFakeDonor() {
+    	Registration r = new Registration();
+    	r.setCategory("General");
+    	r.setDonorUUID(UUID.randomUUID().toString());
+    	r.setOpportunityId("1252");
+    	r.setTimestamp(System.currentTimeMillis());
+		dataAccess.AddRegistration(r);
+    	return "okey";
+    }
 }
