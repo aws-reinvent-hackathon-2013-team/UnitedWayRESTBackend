@@ -51,7 +51,7 @@ public class VolunteerService {
 		return categories.get( id );
 	}
 
-	public Collection<Opportunity> getOpportunities(float latitude, float longitude) {
+	public Collection<Opportunity> getOpportunities(float latitude, float longitude, String volunteerId ) {
 		List<Opportunity> result = new LinkedList<Opportunity>();
 		for (GeocodedResults flatOp : dataAccess.getOpportunities(latitude, longitude, LOOKUP_RADIUS_METER)) {
 			Location location = new Location();
@@ -109,9 +109,9 @@ public class VolunteerService {
 		});
 	}
 	
-	public Collection<Opportunity> getOpportunities( String zipcode ) {
+	public Collection<Opportunity> getOpportunities( String zipcode, String volunteerId ) {
 		LatLong ll = getLatLongZip( zipcode );
-		return getOpportunities( ll.getLatitude(), ll.getLatitude() );
+		return getOpportunities( ll.getLatitude(), ll.getLatitude(), volunteerId );
 	}
 	
 	private LatLong getLatLongZip( String zipcode ) {

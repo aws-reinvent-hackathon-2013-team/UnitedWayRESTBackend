@@ -23,6 +23,8 @@ import ch.furthermore.demo.st.rest.model.Opportunity;
 @Produces(MediaType.APPLICATION_JSON)
 public interface VolunteerAPI {
 	
+	public static final String USER_HEADER = "X-United-Way-Volunteer";
+	
 	public static interface Paths {
 		public static final String ROOT = "/";
 		public static final String CATEGORIES = "categories";
