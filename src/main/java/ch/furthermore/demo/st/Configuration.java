@@ -18,8 +18,8 @@ public class Configuration {
 	
 	private Configuration() {
 		props.put( Keys.DYNAMO_REGION, System.getProperty(Keys.DYNAMO_REGION,Regions.US_WEST_2.getName()) );
-		props.put( Keys.DYNAMO_DBGEO_ACCESS_KEY, System.getProperty(Keys.DYNAMO_DBGEO_ACCESS_KEY,"AKIAJBHDBH4JIW5R5KEQ" ) );
-		props.put( Keys.DYNAMO_DBGEO_SECRET_KEY, System.getProperty(Keys.DYNAMO_DBGEO_SECRET_KEY,"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" ) );
+		props.put( Keys.DYNAMO_DBGEO_ACCESS_KEY, System.getProperty(Keys.DYNAMO_DBGEO_ACCESS_KEY,"*************" ) );
+		props.put( Keys.DYNAMO_DBGEO_SECRET_KEY, System.getProperty(Keys.DYNAMO_DBGEO_SECRET_KEY,"********************" ) );
 	}
 	
 	public static Configuration instance() {
